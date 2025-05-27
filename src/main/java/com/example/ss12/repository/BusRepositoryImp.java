@@ -48,7 +48,7 @@ public class BusRepositoryImp implements BusRepository {
         Bus bus = null;
         try {
             conn = ConnectionDB.openConnection();
-            cstmt = conn.prepareCall("{call find_all_bus(?)}");
+            cstmt = conn.prepareCall("{call find_bus_by_id(?)}");
             cstmt.setInt(1, id);
             ResultSet rs = cstmt.executeQuery();
             if (rs.next()) {
@@ -101,7 +101,7 @@ public class BusRepositoryImp implements BusRepository {
         boolean result = false;
         try {
             conn = ConnectionDB.openConnection();
-            cstmt = conn.prepareCall("{call create_bus(?, ?, ?, ?, ?, ?, ?)}");
+            cstmt = conn.prepareCall("{call update_bus(?, ?, ?, ?, ?, ?, ?)}");
             cstmt.setInt(1, bus.getId());
             cstmt.setString(2, bus.getLicensePlate());
             cstmt.setString(3, bus.getBusType());
@@ -126,7 +126,7 @@ public class BusRepositoryImp implements BusRepository {
         boolean result = false;
         try {
             conn = ConnectionDB.openConnection();
-            cstmt = conn.prepareCall("{call create_bus(?)}");
+            cstmt = conn.prepareCall("{call delete_bus(?)}");
             cstmt.setInt(1, id);
             cstmt.executeUpdate();
             result = true;
